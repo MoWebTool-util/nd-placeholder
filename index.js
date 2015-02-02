@@ -7,8 +7,8 @@
 'use strict';
 
 var Placeholder;
-var $=require('jquery');
-var Position=require('nd-position');
+var $ = require('jquery');
+var Position = require('nd-position');
 require('nd-inputor');
 
 var detect = (function () {
@@ -26,33 +26,41 @@ Placeholder = function (node, text) {
     node = $(node);
     if (!node.data('placeholder')) {
       text = text || node.attr('placeholder');
-      var hide=node.attr('type')==='hidden'||node.css('display')==='none'||node.css('visibile')==='hidden';
+      var hide = node.attr('type') === 'hidden' || node.css('display') === 'none' || node.css('visibile') === 'hidden';
       var p = $('<span class="placeholder">' + text + '</span>');
       var h = parseInt(node.css('line-height')) + 4;
       var pl = parseInt(node.css('padding-left'));
       var pt = parseInt(node.css('padding-top'));
-      var borderLeft=parseInt(node.css('border-left-width')) +1;
-      var borderTop=parseInt(node.css('border-top-width')) + 1;
+      var borderLeft = parseInt(node.css('border-left-width')) + 1;
+      var borderTop = parseInt(node.css('border-top-width')) + 1;
 
       node.after(p);
       p.css({
-        color: '#bbb',
-        height: h,
-        lineHeight: h + 'px',
-        paddingLeft: pl + 'px',
-        paddingTop: pt + 'px',
-        display:hide?'none':'inline'
-      });
+          color: '#bbb',
+          height: h,
+          lineHeight: h + 'px',
+          paddingLeft: pl + 'px',
+          paddingTop: pt + 'px'
+        }
+      );
+      if(hide){
+        p.css({display:'none'});
+      }
 
       Position.pin({
         element: p,
-        x:0,
-        y:0
+        x: 0,
+        y: 0
       }, {
         element: node,
-        x:borderLeft+'px',
-        y:borderTop+'px'
+        x: borderLeft + 'px',
+        y: borderTop + 'px'
       });
+
+      if (hide) {
+        p.css({left: '-9999px'});
+      }
+
 
       node.timer(function (text) {
         p[text.length ? 'hide' : 'show']();
@@ -69,7 +77,8 @@ Placeholder = function (node, text) {
       node.data('placeholder', true);
     }
   }
-};
+}
+;
 
 Placeholder.render = function () {
   $('[placeholder]').placehoder();
