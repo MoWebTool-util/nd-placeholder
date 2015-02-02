@@ -4,6 +4,8 @@
 
 > 兼容浏览器的placehodler
 
+##弃用原先的使用的placehodlers[https://github.com/jamesallardice/Placeholders.js]
+
 ## 安装
 
 ```
