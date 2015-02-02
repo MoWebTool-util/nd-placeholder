@@ -26,7 +26,7 @@ Placeholder = function (node, text) {
     node = $(node);
     if (!node.data('placeholder')) {
       text = text || node.attr('placeholder');
-      var hide = node.attr('type') === 'hidden' || node.css('display') === 'none' || node.css('visibile') === 'hidden';
+      var hide = node.attr('type') === 'hidden' || node.css('display') === 'none' || node.css('visibility') === 'hidden';
       var p = $('<span class="placeholder">' + text + '</span>');
       var h = parseInt(node.css('line-height')) + 4;
       var pl = parseInt(node.css('padding-left'));
