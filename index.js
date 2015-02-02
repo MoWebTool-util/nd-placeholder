@@ -21,15 +21,18 @@ var detect = (function () {
   };
 })();
 
- Placeholder = function (node, text) {
+Placeholder = function (node, text) {
   if (!detect()) {
     node = $(node);
     if (!node.data('placeholder')) {
       text = text || node.attr('placeholder');
+      var hide=node.attr('type')==='hidden'||node.css('display')==='none'||node.css('visibile')==='hidden';
       var p = $('<span class="placeholder">' + text + '</span>');
       var h = parseInt(node.css('line-height')) + 4;
       var pl = parseInt(node.css('padding-left'));
       var pt = parseInt(node.css('padding-top'));
+      var borderLeft=parseInt(node.css('border-left-width')) +1;
+      var borderTop=parseInt(node.css('border-top-width')) + 1;
 
       node.after(p);
       p.css({
@@ -37,13 +40,18 @@ var detect = (function () {
         height: h,
         lineHeight: h + 'px',
         paddingLeft: pl + 'px',
-        paddingTop: pt + 'px'
+        paddingTop: pt + 'px',
+        display:hide?'none':'inline'
       });
 
       Position.pin({
-        element: p
+        element: p,
+        x:0,
+        y:0
       }, {
-        element: node
+        element: node,
+        x:borderLeft+'px',
+        y:borderTop+'px'
       });
 
       node.timer(function (text) {
